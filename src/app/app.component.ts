@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -34,9 +35,15 @@ export class AppComponent  implements OnInit{
    /*  this.minhaPromise('Jéssyca')
       .then(result => console.log(result)) */
 
-      this.minhaPromise('Teste')
+   /*    this.minhaPromise('Teste')
       .then(result => console.log(result))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error)) */
+
+      //assinando o canal e todo o conteúdo dele é seu
+      //Vc pode cancelar a assinatura e tratar uma situação onde já terminou de receber informações
+      this.minhaObservable('')
+        .subscribe(result => console.log(result),
+        erro => console.log(erro));
   }
 
 
@@ -51,7 +58,23 @@ export class AppComponent  implements OnInit{
         reject('Ops! Vc n é a Jéssyca')
       }
     })
-    
+  }
+
+  minhaObservable(nome: string): Observable<string>{
+    return new Observable(subscriber =>{
+
+      if(nome === 'Jéssyca'){
+        subscriber.next('Olá' + nome);
+        subscriber.next('Olá de novo' + nome);
+        setTimeout(()=>{
+          subscriber.next('Resposta com delay')
+        }, 1000);   
+      }
+      else{
+        //Erro do objeto reativo
+        subscriber.error('Ops! Deu erro');
+      }
+    }) 
   }
   
 }
