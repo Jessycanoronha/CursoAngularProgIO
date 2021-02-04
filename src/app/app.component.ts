@@ -31,8 +31,12 @@ export class AppComponent  implements OnInit{
   title = 'RXJS';
   
   ngOnInit(): void {
-    this.minhaPromise('Jéssyca')
+   /*  this.minhaPromise('Jéssyca')
+      .then(result => console.log(result)) */
+
+      this.minhaPromise('Teste')
       .then(result => console.log(result))
+      .catch(error => console.log(error))
   }
 
 
