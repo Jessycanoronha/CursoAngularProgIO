@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +27,27 @@ import { Component } from '@angular/core';
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent  implements OnInit{
   title = 'RXJS';
+  
+  ngOnInit(): void {
+    this.minhaPromise('Jéssyca')
+      .then(result => console.log(result))
+  }
+
+
+  minhaPromise(nome: string): Promise<string>{
+    return new Promise((resolve, reject) => {
+      if(nome === 'Jéssyca'){
+        setTimeout(()=>{
+          resolve('Seja bem vinda ' + nome)
+        }, 1000);
+      }
+      else{
+        reject('Ops! Vc n é a Jéssyca')
+      }
+    })
+    
+  }
+  
 }
